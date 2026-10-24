@@ -1,6 +1,7 @@
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
+import uuid
 import streamlit as st
 import tensorflow as tf
 import numpy as np
