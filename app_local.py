@@ -8,8 +8,7 @@ from PIL import Image
 
 # Page configuration
 st.set_page_config(page_title="Waste Classifier", page_icon="♻️")
-
-st.title("♻️ Waste Classifier (V2)")
+st.title("♻️ Waste Classifier")
 st.write("Upload an image to classify the type of waste material.")
 
 # List of the 30 classes from the model
@@ -38,6 +37,22 @@ with st.spinner("Loading model..."):
 uploaded_file = st.file_uploader("Select or drop a waste image...", type=["jpg", "jpeg", "png", "webp"])
 
 if uploaded_file is not None:
+
+    # -------------------------------------------------------------
+    # AUTOMATICALLY SAVE THE UPLOADED IMAGE TO A LOCAL DIRECTORY
+    # -------------------------------------------------------------
+    SAVE_DIR = "dataset_recolectado"
+    os.makedirs(SAVE_DIR, exist_ok=True)  # Create the directory if it doesn't exist
+
+    # Generate a unique name for the image (e.g., a1b2c3d4_Manzana.jpg)
+    filename = f"{uuid.uuid4().hex[:8]}_{uploaded_file.name}"
+    filepath = os.path.join(SAVE_DIR, filename)
+
+    # Save the image to your local hard drive
+    with open(filepath, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    # -------------------------------------------------------------
+
     # Display the uploaded image
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_container_width=True)
