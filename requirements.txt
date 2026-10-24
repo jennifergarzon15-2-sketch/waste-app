@@ -3,3 +3,4 @@ tensorflow
 numpy
 pillow
 huggingface-hub
+google-cloud-storage
